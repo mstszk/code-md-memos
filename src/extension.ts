@@ -1,27 +1,27 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+// import * as vscode from 'vscode';
+import MarkdownIt = require('markdown-it');
+import Token = require("markdown-it/lib/token");
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "code-md-memos" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World!');
-	});
-
-	context.subscriptions.push(disposable);
+export function activate() {
+  return {
+    extendMarkdownIt(md: MarkdownIt) {
+      md.use(require('markdown-it-emoji'));
+      md.renderer.rules.emoji = (tokens: Token[], idx: number) => {
+        return `<span class="emoji emoji_${tokens[idx].markup}">${tokens[idx].content}</span>`;
+      };
+      md.use(require('markdown-it-sub'));
+      md.use(require('markdown-it-sup'));
+      md.use(require('markdown-it-mark'));
+      md.use(require('markdown-it-underline'));
+      md.use(require('markdown-it-imsize'));
+      md.use(require('markdown-it-bracketed-spans'));
+      md.use(require('markdown-it-attrs'), {
+        leftDelimiter: '{{',
+        rightDelimiter: '}}',
+      });
+      md.use(require('./plugins/container'));
+			md.use(require('./plugins/bib'));
+			return md;
+    }
+  };
 }
-
-// this method is called when your extension is deactivated
-export function deactivate() {}

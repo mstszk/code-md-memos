@@ -1,0 +1,42 @@
+.L {
+  float: left;
+}
+.R {
+  float: right;
+}
+.C {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+.red {
+  color: #bf616a;
+}
+.orange {
+  color: #d08770;
+}
+.yellow {
+  color: #ebcb8b;
+}
+.green {
+  color: #a3be8c;
+}
+.purple {
+  color: #b48ead;
+}
+.container .container-header {
+  font-weight: 500;
+}
+.container .container-content {
+  margin-left: 0.5em;
+  padding-left: 0.5em;
+  border-left: 4px solid;
+}
+.bib .authors,
+.bib .year {
+  font-size: 0.9em;
+}
+.bib .title {
+  text-decoration: none;
+  font-weight: bold;
+}
