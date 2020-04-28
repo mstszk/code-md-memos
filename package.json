@@ -3,6 +3,7 @@
 	"displayName": "code-md-memos",
 	"publisher": "mstszk",
   "description": "Add some extensions to VS Code built-in markdown preview",
+	"private": true,
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.44.0"
