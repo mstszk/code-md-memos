@@ -9,6 +9,12 @@
   width: 100%;
   text-align: center;
 }
+.small {
+  font-size: .85em;
+}
+.tiny {
+  font-size: .7em;
+}
 .red {
   color: #bf616a;
 }
