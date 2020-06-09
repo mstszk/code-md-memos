@@ -41,15 +41,23 @@ function bib_rule(state: StateInline) {
 module.exports = (md: MarkdownIt) => {
   md.inline.ruler.after('text', 'bib', bib_rule);
   md.renderer.rules.bib = (tokens: Token[], idx: number) => {
-    const key = tokens[idx].content;
-    const title = bib.getEntry(key).getFieldAsString('title');
-    const author = bib.getEntry(key).getField('author');
-    const doi = bib.getEntry(key).getFieldAsString('doi');
-    const year = bib.getEntry(key).getFieldAsString('year');
+    const entry = bib.getEntry(tokens[idx].content);
+    const title = entry.getFieldAsString('title');
+    const author = entry.getField('author');
     let authors: string[] = [];
     author.authors$.map((author: any) => {
       authors.push(author.initials.join(". ") + ". " + author.lastNames.join(" "));
     });
-    return `<span class="bib"><span class="authors">${authors.join(', ')}</span>, <a class="title" href="http://dx.doi.org/${doi}" target="_blank" rel="noopener">"${title}"</a>, <span class="year">${year}</span></span>`;
+    const year = entry.getFieldAsString('year');
+    const doi = entry.getFieldAsString('doi');
+    const arxivid = entry.getFieldAsString('arxivid');
+    let url: string = '';
+    if (doi) {
+      url = `http://dx.doi.org/${doi}`;
+    } else if (arxivid) {
+      url = `http://arxiv.org/abs/${arxivid}`;
+    }
+    const titleEl = url ? `<a class="title" href="${url}" target="_blank" rel="noopener">"${title}"</a>` : `<span class="title">${title}</span>`;
+    return `<span class="bib"><span class="authors">${authors.join(', ')}</span>, ${titleEl}, <span class="year">${year}</span></span>`;
   };
 };
