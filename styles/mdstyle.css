@@ -30,13 +30,26 @@
 .purple {
   color: #b48ead;
 }
+.container {
+  padding: 0.5em 1em;
+  margin: 0.5em;
+  border-radius: 0.5em;
+}
+.container.gray {
+  background: #d3d3d3;
+}
+.container.lightgray {
+  background: #ebebeb;
+}
 .container .container-header {
   font-weight: 500;
+}
+.container .container-header > p{
+  line-height: 1.5em;
 }
 .container .container-content {
   margin-left: 0.5em;
   padding-left: 0.5em;
-  border-left: 4px solid;
 }
 .bib .authors,
 .bib .year {
